@@ -11,8 +11,17 @@ let slidePrev = document.querySelector(".slide-prev");
 let weatherIcon = document.querySelector(".weather-icon");
 let temperature = document.querySelector(".temperature");
 let weatherDescription = document.querySelector(".weather-description");
+let wind = document.querySelector(".wind");
+let humidity = document.querySelector(".humidity");
 let city = document.querySelector(".city");
 let weatherError = document.querySelector(".weather-error");
+let quote = document.querySelector(".quote");
+let author = document.querySelector(".author");
+let changeQuoteBtn = document.querySelector(".change-quote");
+let playListContainer = document.querySelector(".play-list");
+let playPauseBtn = document.querySelector(".play");
+let playNextBtn = document.querySelector(".play-next");
+let playPrevBtn = document.querySelector(".play-prev");
 
 // Time: hours, mins and secs
 function showTime() {
@@ -136,7 +145,6 @@ slideNext.addEventListener("click", getSlideNext);
 slidePrev.addEventListener("click", getSlidePrev);
 
 // Weather widget
-
 function setLocalStorageCity() {
   localStorage.setItem("city", city.value);
 }
@@ -157,31 +165,112 @@ async function getWeather() {
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&lang=en&appid=2a6b8dde53d04ed7e56e86a1c7a9cc78&units=metric`;
   const res = await fetch(url);
   const data = await res.json();
-
   if (res.status == 404 || res.status == 400) {
     weatherIcon.style.display = "none";
-    weatherDescription.style.display = "none";
+    wind.style.display = "none";
+    humidity.style.display = "none";
     temperature.style.display = "none";
     weatherError.style.display = "block";
     weatherError.textContent =
       "Error: " + data.message + " for " + `'${city.value}'`;
   } else {
     weatherIcon.style.display = "block";
-    weatherDescription.style.display = "block";
+    wind.style.display = "block";
+    humidity.style.display = "block";
     temperature.style.display = "block";
+
     weatherIcon.className = "weather-icon owf";
     weatherError.style.display = "none";
     weatherIcon.classList.add(`owf-${data.weather[0].id}`);
     temperature.textContent = `${Math.floor(data.main.temp)}°C ${
       data.weather[0].description
     }`;
-    weatherDescription.textContent = `Wind speed: ${Math.floor(
-      data.wind.speed
-    )} m/s Humidity: ${data.main.humidity}%`;
+    wind.textContent = `Wind speed: ${Math.floor(data.wind.speed)} m/s`;
+    humidity.textContent = `Humidity: ${data.main.humidity}%`;
   }
 }
-// getWeather();
 
 city.addEventListener("change", function () {
   getWeather();
 });
+
+// random quotes
+async function getQuotes() {
+  const quotes = "data.json";
+  const res = await fetch(quotes);
+  const data = await res.json();
+  let randomNum = Math.floor(Math.random() * (23 + 1));
+  quote.textContent = data[randomNum].text;
+  author.textContent = data[randomNum].author;
+}
+getQuotes();
+changeQuoteBtn.addEventListener("click", getQuotes);
+
+// audioplayer
+let isPlaying = false;
+const audio = new Audio();
+
+import playList from "./playList.js";
+playList.forEach((el) => {
+  let li = document.createElement("li");
+  li.classList.add("play-item");
+  li.textContent = el.title;
+  playListContainer.append(li);
+});
+
+let playNum = 0;
+function playAudio() {
+  audio.src = playList[playNum].src;
+  audio.currentTime = 0;
+  if (isPlaying == false) {
+    audio.play();
+    isPlaying = true;
+  } else {
+    audio.pause();
+    isPlaying = false;
+  }
+  playPauseBtn.classList.toggle("pause");
+  playItems[playNum].classList.toggle("item-active");
+}
+playPauseBtn.addEventListener("click", playAudio);
+
+function playNext() {
+  if (playNum >= 0 && playNum < playList.length - 1) {
+    playNum = playNum + 1;
+    playNextOrPrev();
+    makeItemActive(playNum, playNum - 1);
+  } else if (playNum == playList.length - 1) {
+    playNum = 0;
+    playNextOrPrev();
+    makeItemActive(playNum, playList.length - 1);
+  }
+}
+playNextBtn.addEventListener("click", playNext);
+
+function playPrev() {
+  if (playNum > 0 && playNum <= playList.length - 1) {
+    playNum = playNum - 1;
+    playNextOrPrev();
+    makeItemActive(playNum, playNum + 1);
+  } else if (playNum == 0) {
+    playNum = playList.length - 1;
+    playNextOrPrev();
+    makeItemActive(playNum, 0);
+  }
+}
+playPrevBtn.addEventListener("click", playPrev);
+
+function playNextOrPrev() {
+  audio.src = playList[playNum].src;
+  audio.currentTime = 0;
+  audio.play();
+  isPlaying = true;
+  playPauseBtn.classList.add("pause");
+}
+
+let playItems = playListContainer.getElementsByTagName("li");
+
+function makeItemActive(playNum, playNumPrev) {
+  playItems[playNum].classList.add("item-active");
+  playItems[playNumPrev].classList.remove("item-active");
+}
