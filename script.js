@@ -22,6 +22,15 @@ let playListContainer = document.querySelector(".play-list");
 let playPauseBtn = document.querySelector(".play");
 let playNextBtn = document.querySelector(".play-next");
 let playPrevBtn = document.querySelector(".play-prev");
+let volumeSlider = document.querySelector("#volume-slider");
+let songName = document.querySelector(".song_name");
+let volumeIcon = document.querySelector(".volume");
+let progressBar = document.querySelector(".progress");
+let currentSongTime = document.querySelector(".current");
+let songLength = document.querySelector(".length");
+let timeline = document.querySelector(".timeline");
+let playItems = playListContainer.getElementsByTagName("li");
+let playItem = document.querySelectorAll(".play-item");
 
 // Time: hours, mins and secs
 function showTime() {
@@ -54,7 +63,6 @@ function showDate() {
   date.textContent = day + ", " + currentDate;
   setTimeout(showDate, 1000);
 }
-// showDate();
 
 // Greeting
 let curDate = new Date();
@@ -207,6 +215,7 @@ getQuotes();
 changeQuoteBtn.addEventListener("click", getQuotes);
 
 // audioplayer
+
 let isPlaying = false;
 const audio = new Audio();
 
@@ -229,6 +238,8 @@ function playAudio() {
     audio.pause();
     isPlaying = false;
   }
+  songLength.textContent = playList[playNum].duration;
+  songName.textContent = playList[playNum].title;
   playPauseBtn.classList.toggle("pause");
   playItems[playNum].classList.toggle("item-active");
 }
@@ -266,11 +277,63 @@ function playNextOrPrev() {
   audio.play();
   isPlaying = true;
   playPauseBtn.classList.add("pause");
+  songName.textContent = playList[playNum].title;
+  songLength.textContent = playList[playNum].duration;
 }
-
-let playItems = playListContainer.getElementsByTagName("li");
 
 function makeItemActive(playNum, playNumPrev) {
   playItems[playNum].classList.add("item-active");
   playItems[playNumPrev].classList.remove("item-active");
 }
+
+// Upgreat Audio
+//click volume slider to change volume
+volumeSlider.addEventListener("mousemove", function (e) {
+  audio.volume = e.currentTarget.value;
+  if (audio.volume == 0) {
+    volumeIcon.classList.remove("icono-volumeMedium");
+    volumeIcon.classList.remove("icono-volumeHigh");
+    volumeIcon.classList.add("icono-volumeMute");
+  } else if (audio.volume > 0 && audio.volume < 0.9) {
+    volumeIcon.classList.remove("icono-volumeHigh");
+    volumeIcon.classList.remove("icono-volumeMute");
+    volumeIcon.classList.add("icono-volumeMedium");
+  } else if (audio.volume >= 0.9) {
+    volumeIcon.classList.remove("icono-volumeMute");
+    volumeIcon.classList.remove("icono-volumeMedium");
+    volumeIcon.classList.add("icono-volumeHigh");
+  }
+});
+
+setInterval(() => {
+  currentSongTime.textContent = getTimeCodeFromNum(audio.currentTime);
+}, 1000);
+
+// get mins and seconds from a num (audio.currentTime)
+function getTimeCodeFromNum(num) {
+  let seconds = parseInt(num);
+  let minutes = parseInt(seconds / 60);
+  seconds -= minutes * 60;
+  const hours = parseInt(minutes / 60);
+  minutes -= hours * 60;
+  if (hours === 0) return `${minutes}:${String(seconds % 60).padStart(2, 0)}`;
+  return `${String(hours).padStart(2, 0)}:${minutes}:${String(
+    seconds % 60
+  ).padStart(2, 0)}`;
+}
+
+setInterval(() => {
+  progressBar.style.width = (audio.currentTime / audio.duration) * 100 + "%";
+}, 100);
+
+timeline.addEventListener(
+  "click",
+  (e) => {
+    let timelineWidth = window.getComputedStyle(timeline).width;
+    let timeToSeek = (e.offsetX / parseInt(timelineWidth)) * audio.duration;
+    audio.currentTime = timeToSeek;
+  },
+  false
+);
+
+console.log(playItems);

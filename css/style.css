@@ -36,7 +36,49 @@ body {
   align-items: center;
   justify-content: space-between;
   width: 120px;
-  margin-bottom: 28px;
+  margin-bottom: 20px;
+  margin-left: 40px;
+}
+
+.song_name {
+  margin-bottom: 10px;
+}
+
+.timeline {
+  background: white;
+  width: 100%;
+  margin-bottom: 10px;
+  height: 5px;
+  cursor: pointer;
+  box-shadow: 0 2px 10px 0 rgba(255, 255, 255, 0.533);
+}
+
+.progress {
+  background: rgb(13, 148, 185);
+  width: 0%;
+  height: 100%;
+  transition: 0.25s;
+}
+.timeAndVolumeContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.songTime {
+  display: flex;
+}
+
+.volume-container {
+  cursor: pointer;
+  width: 40%;
+}
+
+.volume-container input[type="range"] {
+  width: 80px;
+  height: 5px;
+  background-color: #ffffff;
 }
 
 .play-list {
@@ -49,8 +91,8 @@ body {
   padding-left: 20px;
   list-style: none;
   opacity: 0.8;
-  cursor: pointer;
   transition: 0.3s;
+  cursor: pointer;
 }
 
 .play-item:hover {
