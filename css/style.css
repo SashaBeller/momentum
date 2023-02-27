@@ -19,6 +19,7 @@ body {
   background: center/cover, rgba(0, 0, 0, 0.5);
   background-blend-mode: multiply;
   transition: background-image 1s ease-in-out;
+  overflow: hidden;
 }
 
 .header {
@@ -36,18 +37,18 @@ body {
   align-items: center;
   justify-content: space-between;
   width: 120px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   margin-left: 40px;
 }
 
 .song_name {
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
 .timeline {
   background: white;
   width: 100%;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   height: 5px;
   cursor: pointer;
   box-shadow: 0 2px 10px 0 rgba(255, 255, 255, 0.533);
@@ -63,7 +64,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
 .songTime {
@@ -311,6 +312,60 @@ body {
   min-height: 20px;
 }
 
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  margin-top: 15px;
+}
+
+.settings {
+  cursor: pointer;
+  transition: transform 0.5s;
+}
+
+.settings:hover {
+  transform: rotate(360deg);
+  transition: all 0.3s ease-in-out 0s;
+}
+
+.settings-list {
+  display: none;
+  /* flex-direction: column;
+  position: absolute;
+  background-color: rgba(154, 165, 162, 0.5);
+  bottom: 70px;
+  width: 180px;
+  border-radius: 5px;
+  transition: all 0.5s; */
+}
+.active {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  background-color: rgba(154, 165, 162, 0.5);
+  bottom: 70px;
+  width: 180px;
+  border-radius: 5px;
+  transition: all 0.5s;
+}
+
+.settings-element {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  margin: 5px;
+}
+.toDo {
+  cursor: pointer;
+}
+
+.off {
+  display: none;
+  opacity: 0;
+  transition: all 1s;
+}
 @media (max-width: 768px) {
   .time {
     min-height: 80px;
