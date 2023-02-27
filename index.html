@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="assets/favicon.ico" rel="shortcut icon" />
+    <link rel="stylesheet" href="css/owfont-regular.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="https://icono-49d6.kxcdn.com/icono.min.css" />
+    <title>momentum</title>
+  </head>
+  <body>
+    <header class="header">
+      <div class="player">
+        <div class="audio-player">
+          <div class="player-controls">
+            <button class="play-prev player-icon"></button>
+            <button class="play player-icon"></button>
+            <button class="play-next player-icon"></button>
+          </div>
+          <div class="song_name">Song Name</div>
+          <div class="timeline">
+            <div class="progress"></div>
+          </div>
+          <div class="timeAndVolumeContainer">
+            <div class="songTime">
+              <div class="current">0:00</div>
+              <span class="divider">&nbsp;/&nbsp;</span>
+              <div class="length">0:00</div>
+            </div>
+            <div class="volume-container">
+              <div class="volume icono-volumeMedium"></div>
+              <input
+                id="volume-slider"
+                type="range"
+                min="0"
+                max="1"
+                step="0.01"
+              />
+            </div>
+          </div>
+        </div>
+        <ul class="play-list"></ul>
+      </div>
+      <div class="weather">
+        <input type="text" class="city" placeholder="[enter city]" />
+        <i class="weather-icon owf"></i>
+        <div class="weather-error"></div>
+        <div class="description-container">
+          <i class="weather-icon owf"></i>
+          <span class="temperature"></span>
+          <span class="weather-description"></span>
+        </div>
+        <div class="wind"></div>
+        <div class="humidity"></div>
+      </div>
+    </header>
+    <main class="main">
+      <div class="slider-icons">
+        <button class="slide-prev slider-icon"></button>
+        <button class="slide-next slider-icon"></button>
+      </div>
+      <time class="time"></time>
+      <date class="date"></date>
+      <div class="greeting-container">
+        <span class="greeting"></span>
+        <input type="text" class="name" placeholder="[enter your name]" />
+      </div>
+    </main>
+    <footer class="footer">
+      <button class="change-quote"></button>
+      <div>
+        <div class="quote"></div>
+        <div class="author"></div>
+      </div>
+      <div class="footer-container">
+        <div class="settings-container">
+          <div class="settings-list">
+            <div class="settings-element">
+              <input type="checkbox" id="switch-background" />
+              <label for="switch-background"> Background</label><br />
+            </div>
+            <div class="settings-element">
+              <input type="checkbox" id="switch-weather" />
+              <label for="switch-weather"> Weather</label><br />
+            </div>
+            <div class="settings-element">
+              <input type="checkbox" id="switch-player" />
+              <label for="switch-player"> Music</label><br />
+            </div>
+            <div class="settings-element">
+              <input type="checkbox" id="switch-time" />
+              <label for="switch-time"> Time</label><br />
+            </div>
+            <div class="settings-element">
+              <input type="checkbox" id="switch-date" />
+              <label for="switch-date"> Date</label><br />
+            </div>
+            <div class="settings-element">
+              <input type="checkbox" id="switch-greeting" />
+              <label for="switch-greeting"> Greeting</label><br />
+            </div>
+            <div class="settings-element">
+              <input type="checkbox" id="switch-quote" />
+              <label for="switch-quote"> Quotes</label><br />
+            </div>
+            <div class="settings-element">
+              <input type="checkbox" id="switch-toDo" />
+              <label for="switch-toDo"> ToDo List</label><br />
+            </div>
+            <div class="settings-element">
+              <input type="checkbox" id="switch-lang" />
+              <label for="switch-lang" class="checkbox-lang"> RU </label><br />
+            </div>
+            <div class="settings-element">
+              <input type="checkbox" id="switch-lang" />
+              <label for="switch-lang" class="checkbox-lang"> EN </label><br />
+            </div>
+          </div>
+          <div class="settings icono-gear"></div>
+        </div>
+        <div class="link">2023</div>
+        <div class="toDo">toDo</div>
+      </div>
+    </footer>
+    <script type="module" src="script.js"></script>
+  </body>
+</html>
