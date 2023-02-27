@@ -30,7 +30,6 @@ let currentSongTime = document.querySelector(".current");
 let songLength = document.querySelector(".length");
 let timeline = document.querySelector(".timeline");
 let playItems = playListContainer.getElementsByTagName("li");
-let playItem = document.querySelectorAll(".play-item");
 
 // Time: hours, mins and secs
 function showTime() {
@@ -336,4 +335,10 @@ timeline.addEventListener(
   false
 );
 
-console.log(playItems);
+// Menu for settings
+let settingsBtn = document.querySelector(".settings");
+let settingsList = document.querySelector(".settings-list");
+
+settingsBtn.addEventListener("click", function () {
+  settingsList.classList.toggle("active");
+});
