@@ -123,7 +123,6 @@ setBG();
 
 // right amd left buttons
 function getSlideNext() {
-  console.log(randomNum);
   if (randomNum >= 1 && randomNum < 9) {
     randomNum = "0" + (Number(randomNum) + 1);
     return setBG();
