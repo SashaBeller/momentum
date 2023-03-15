@@ -31,6 +31,11 @@ let songLength = document.querySelector(".length");
 let timeline = document.querySelector(".timeline");
 let playItems = playListContainer.getElementsByTagName("li");
 
+import translationArr from "./translation.js";
+
+// selectors for page elements
+let weather = document.querySelector(".weather");
+
 // Time: hours, mins and secs
 function showTime() {
   let date = new Date();
@@ -335,9 +340,38 @@ timeline.addEventListener(
 );
 
 // Menu for settings
+const state = {
+  language: "en",
+  photoSource: "github",
+  blocks: [
+    "time",
+    "date",
+    "greeting-container",
+    "quotes",
+    "weather",
+    "player",
+    "todolist",
+  ],
+};
+
 let settingsBtn = document.querySelector(".settings");
 let settingsList = document.querySelector(".settings-list");
 
 settingsBtn.addEventListener("click", function () {
   settingsList.classList.toggle("active");
+  settingsBtn.classList.toggle("opened");
 });
+
+// let weatherSwitch = document.getElementById("switch-weather");
+// weatherSwitch.addEventListener("click", function () {
+//   weather.classList.toggle("closed");
+// });
+
+function toggleChange() {
+  state.blocks.forEach((el) => {
+    document.getElementById("switch-" + el).addEventListener("click", () => {
+      document.querySelector("." + el).classList.toggle("closed");
+    });
+  });
+}
+toggleChange();
