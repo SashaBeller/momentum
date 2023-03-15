@@ -170,6 +170,7 @@ body {
   width: 180px;
   min-height: 180px;
   text-align: left;
+  transition: 0.3s;
 }
 
 .weather-error {
@@ -325,9 +326,9 @@ body {
   transition: transform 0.5s;
 }
 
-.settings:hover {
-  transform: rotate(360deg);
-  transition: all 0.3s ease-in-out 0s;
+.opened {
+  transform: rotate(90deg);
+  transition: all 0.8s ease-in-out 0s;
 }
 
 .settings-list {
@@ -344,7 +345,7 @@ body {
   display: flex;
   flex-direction: column;
   position: absolute;
-  background-color: rgba(154, 165, 162, 0.5);
+  background-color: rgba(175, 171, 166, 0.5);
   bottom: 70px;
   width: 180px;
   border-radius: 5px;
@@ -353,10 +354,44 @@ body {
 
 .settings-element {
   display: flex;
-  flex-direction: row-reverse;
   justify-content: space-between;
+  flex-direction: row-reverse;
+  align-items: center;
   margin: 5px;
 }
+
+input[type="checkbox"] {
+  -webkit-appearance: none;
+  position: relative;
+  width: 35px;
+  height: 18px;
+  border-radius: 25px;
+  background-color: rgb(82, 177, 133);
+  transition: background 0.3s;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+input[type="checkbox"]::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 70%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  height: 15px;
+  width: 15px;
+  background-color: rgb(255, 255, 255);
+  transition: left 0.3s;
+}
+
+input[type="checkbox"]:checked {
+  background-color: #3a3734;
+}
+input[type="checkbox"]:checked::after {
+  left: 30%;
+}
+
 .toDo {
   cursor: pointer;
 }
@@ -365,6 +400,11 @@ body {
   display: none;
   opacity: 0;
   transition: all 1s;
+}
+
+.closed {
+  opacity: 0;
+  transition: 0.5s;
 }
 @media (max-width: 768px) {
   .time {
